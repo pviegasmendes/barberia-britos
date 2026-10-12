@@ -3,28 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Brito's Barbearia — São Brás de Alportel</title>
+<title>Brito's Barbearia - São Brás de Alportel</title>
 <meta name="description" content="Barbearia em São Brás de Alportel. Cortes degradê, à tesoura, barba com toalha quente e sobrancelhas. Marcação online.">
-<meta name="theme-color" content="#134A3B">
+<meta name="theme-color" content="#134A3B" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1F6B54" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_PT">
 <meta property="og:locale:alternate" content="en_GB">
 <meta property="og:site_name" content="Brito's Barbearia">
-<meta property="og:title" content="Brito's Barbearia — São Brás de Alportel">
+<meta property="og:title" content="Brito's Barbearia - São Brás de Alportel">
 <meta property="og:description" content="Cortes degradê, à tesoura, barba com toalha quente e sobrancelhas. Marcação online.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="alternate" hreflang="pt-PT" href="./">
 <link rel="alternate" hreflang="en" href="en/">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;700&family=Big+Shoulders+Display:wght@500;800;900&display=swap" rel="stylesheet">
+<link rel="preload" href="fontes/big-shoulders-display-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fontes/albert-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
 
 <header class="fachada">
   <div class="topo">
-    <a class="marca" href="#"><img src="img/logo-verde.svg" width="124" height="53" alt="Brito's, Barbearia by Diogo Brito"></a>
+    <a class="marca-link" href="#"><picture><source srcset="img/logo-branco.svg" media="(prefers-color-scheme: dark)"><img src="img/logo-verde.svg" width="124" height="53" alt="Brito's, Barbearia by Diogo Brito"></picture></a>
     <nav aria-label="Principal">
       <a href="#precos">Preços</a>
       <a href="#equipa" class="opc">Equipa</a>
@@ -43,7 +43,7 @@
     <div class="sub">
       <div>
         <p class="oficio">Barbearia em São Brás de Alportel</p>
-        <p class="estado" id="estado" aria-live="polite">Seg. a sex. 9h–13h e 14h–20h. Sáb. 9h–13h.</p>
+        <p class="estado" id="estado" aria-live="polite">Seg. a sex. 9h-13h e 14h-20h. Sáb. 9h-13h.</p>
       </div>
       <div class="acoes">
         <a class="tel" href="tel:+351289841568">289 841 568</a>
@@ -52,6 +52,16 @@
     </div>
   </div>
 </header>
+
+<div class="barra-fixa" id="barra-fixa">
+  <div class="wrap">
+    <a class="marca-link" href="#" tabindex="-1" aria-hidden="true"><picture><source srcset="img/logo-branco.svg" media="(prefers-color-scheme: dark)"><img src="img/logo-verde.svg" width="103" height="44" alt=""></picture></a>
+    <div class="acoes-fixa">
+      <a class="tel" href="tel:+351289841568">289 841 568</a>
+      <a class="btn" href="https://www.fresha.com/a/britos-barbearia-sao-bras-de-alportel-sao-bras-de-alportel-rua-jornal-o-sambrazense-u63k7c5z" target="_blank" rel="noopener">Marcar online<span class="sr-only"> (abre noutra janela)</span></a>
+    </div>
+  </div>
+</div>
 
 <main>
   <section id="precos">
@@ -95,30 +105,14 @@
 
         <div class="grupo">
           <h3>Combos</h3>
-          <div class="servico">
-            <div class="linha"><span class="nome">Degradê e barba</span><span class="pontos"></span><span class="preco">22<small>€</small></span></div>
-            <p class="det"><span class="min">1 h.</span></p>
-          </div>
-          <div class="servico">
-            <div class="linha"><span class="nome">Simples e barba</span><span class="pontos"></span><span class="preco">17<small>€</small></span></div>
-            <p class="det"><span class="min">40 min.</span></p>
-          </div>
-          <div class="servico">
-            <div class="linha"><span class="nome">Degradê, barba e sobrancelhas</span><span class="pontos"></span><span class="preco">28<small>€</small></span></div>
-            <p class="det"><span class="min">1 h 15 min.</span></p>
-          </div>
-          <div class="servico">
-            <div class="linha"><span class="nome">Simples, barba e sobrancelhas</span><span class="pontos"></span><span class="preco">23<small>€</small></span></div>
-            <p class="det"><span class="min">55 min.</span></p>
-          </div>
-          <div class="servico">
-            <div class="linha"><span class="nome">Tesoura e sobrancelhas</span><span class="pontos"></span><span class="preco">20<small>€</small></span></div>
-            <p class="det"><span class="min">55 min.</span></p>
-          </div>
-          <div class="servico">
-            <div class="linha"><span class="nome">Simples e sobrancelhas</span><span class="pontos"></span><span class="preco">16<small>€</small></span></div>
-            <p class="det"><span class="min">35 min.</span></p>
-          </div>
+          <ul class="combos">
+            <li><span class="nome">Degradê e barba</span><span class="pe"><span class="min">1 h</span><span class="preco">22<small>€</small></span></span></li>
+            <li><span class="nome">Simples e barba</span><span class="pe"><span class="min">40 min</span><span class="preco">17<small>€</small></span></span></li>
+            <li><span class="nome">Degradê, barba e sobrancelhas</span><span class="pe"><span class="min">1 h 15 min</span><span class="preco">28<small>€</small></span></span></li>
+            <li><span class="nome">Simples, barba e sobrancelhas</span><span class="pe"><span class="min">55 min</span><span class="preco">23<small>€</small></span></span></li>
+            <li><span class="nome">Tesoura e sobrancelhas</span><span class="pe"><span class="min">55 min</span><span class="preco">20<small>€</small></span></span></li>
+            <li><span class="nome">Simples e sobrancelhas</span><span class="pe"><span class="min">35 min</span><span class="preco">16<small>€</small></span></span></li>
+          </ul>
         </div>
       </div>
     </div>
@@ -197,13 +191,9 @@
         <table class="horario" id="horario">
           <caption>Horário</caption>
           <tbody>
-            <tr data-d="1"><th scope="row">Segunda</th><td>9h–13h, 14h–20h</td></tr>
-            <tr data-d="2"><th scope="row">Terça</th><td>9h–13h, 14h–20h</td></tr>
-            <tr data-d="3"><th scope="row">Quarta</th><td>9h–13h, 14h–20h</td></tr>
-            <tr data-d="4"><th scope="row">Quinta</th><td>9h–13h, 14h–20h</td></tr>
-            <tr data-d="5"><th scope="row">Sexta</th><td>9h–13h, 14h–20h</td></tr>
-            <tr data-d="6"><th scope="row">Sábado</th><td>9h–13h</td></tr>
-            <tr data-d="0"><th scope="row">Domingo</th><td class="fechado">Fechado</td></tr>
+            <tr data-dias="1 2 3 4 5"><th scope="row">Segunda a sexta</th><td><span class="faixa">9h-13h,</span> <span class="faixa">14h-20h</span></td></tr>
+            <tr data-dias="6"><th scope="row">Sábado</th><td>9h-13h</td></tr>
+            <tr data-dias="0"><th scope="row">Domingo</th><td class="fechado">Fechado</td></tr>
           </tbody>
         </table>
         <a class="btn reservar-fim" href="https://www.fresha.com/a/britos-barbearia-sao-bras-de-alportel-sao-bras-de-alportel-rua-jornal-o-sambrazense-u63k7c5z" target="_blank" rel="noopener">Marcar online<span class="sr-only"> (abre noutra janela)</span></a>
@@ -261,12 +251,13 @@
         ? `Aberto agora, até às ${aberto[1]}h`
         : `Fechado agora. ${proximaAbertura(d, h)}`;
       document.querySelectorAll("#horario tr").forEach(tr =>
-        tr.classList.toggle("hoje", +tr.dataset.d === d));
+        tr.classList.toggle("hoje", tr.dataset.dias.split(" ").includes(String(d))));
     }
 
     atualizar();
     setInterval(atualizar, 60000);
   })();
 </script>
+<script src="barra-fixa.js" defer></script>
 </body>
 </html>

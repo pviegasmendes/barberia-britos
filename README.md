@@ -3,7 +3,7 @@
 Web de una página para **Brito's Barbearia** (Barbearia by Diogo Brito), en São Brás de Alportel, Algarve.
 Hecha por [Digital Montra](https://digitalmontra.pt/).
 
-Es HTML y CSS estático, sin build ni dependencias. Las fuentes se cargan desde Google Fonts.
+Es HTML y CSS estático, sin build ni dependencias. Las fuentes están alojadas en la propia web (`public/fontes/`), sin peticiones a Google.
 
 ## Estructura
 
@@ -11,7 +11,9 @@ Es HTML y CSS estático, sin build ni dependencias. Las fuentes se cargan desde 
 public/               Lo que se publica en Netlify
   index.html          Versión en portugués (principal)
   en/index.html       Versión en inglés
-  estilo.css          Estilos compartidos por las dos versiones
+  estilo.css          Estilos compartidos por las dos versiones (modo claro y oscuro)
+  barra-fixa.js       Barra de "Marcar online" que aparece al bajar por la página
+  fontes/             Tipografías alojadas en la propia web (licencia OFL)
   img/                Fotos usadas en la web (galería de Fresha) y el logo en SVG
                       (logo-verde.svg para fondo claro, logo-branco.svg para fondo verde)
   404.html            Página de error, bilingüe
@@ -79,6 +81,7 @@ Con el dominio definitivo conectado en Netlify (*Domain management*), conviene a
   | `--cortica` | `#9A6B45` | Acento: duraciones y foco del teclado |
 
 - **Tipografía:** *Big Shoulders Display* para rótulos y precios, *Albert Sans* para el texto.
+- **Modo oscuro:** automático según el sistema del visitante. Los colores de los dos modos están en las variables de `:root` de `estilo.css`; el logo cambia a la versión blanca.
 
 ## Editar contenido
 
@@ -87,7 +90,7 @@ Cualquier cambio de contenido hay que hacerlo en **las dos versiones** (`public/
 - **Precios y servicios:** sección `id="precos"`. Cada servicio es un bloque `.servico` con nombre, precio y duración.
 - **Equipo:** sección `id="equipa"`, lista `.barbeiros`. El primer elemento (`.fundador`) se muestra más grande.
 - **Horario:** hay que cambiarlo en dos sitios de cada página:
-  1. la tabla `id="horario"`;
+  1. la tabla `id="horario"`. Cada fila lleva en `data-dias` los días que cubre (0 = domingo, 1 = lunes … 6 = sábado), para marcar "(hoje)";
   2. el objeto `horario` / `hours` del `<script>` al final, que calcula el aviso "Aberto agora" / "Open now" (siempre en hora de Lisboa).
 - **Enlace de reservas:** apunta a la página de la barbería en Fresha. Si cambia, busca `fresha.com` en ambos archivos.
 

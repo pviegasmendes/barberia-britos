@@ -3,28 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Brito's Barbershop — São Brás de Alportel</title>
+<title>Brito's Barbershop - São Brás de Alportel</title>
 <meta name="description" content="Barbershop in São Brás de Alportel, Algarve. Fades, scissor cuts, hot-towel beard trims and eyebrows. Book online.">
-<meta name="theme-color" content="#134A3B">
+<meta name="theme-color" content="#134A3B" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1F6B54" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_GB">
 <meta property="og:locale:alternate" content="pt_PT">
 <meta property="og:site_name" content="Brito's Barbearia">
-<meta property="og:title" content="Brito's Barbershop — São Brás de Alportel">
+<meta property="og:title" content="Brito's Barbershop - São Brás de Alportel">
 <meta property="og:description" content="Fades, scissor cuts, hot-towel beard trims and eyebrows. Book online.">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="alternate" hreflang="pt-PT" href="../">
 <link rel="alternate" hreflang="en" href="./">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;700&family=Big+Shoulders+Display:wght@500;800;900&display=swap" rel="stylesheet">
+<link rel="preload" href="../fontes/big-shoulders-display-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fontes/albert-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../estilo.css">
 </head>
 <body>
 
 <header class="fachada">
   <div class="topo">
-    <a class="marca" href="#"><img src="../img/logo-verde.svg" width="124" height="53" alt="Brito's, Barbearia by Diogo Brito"></a>
+    <a class="marca-link" href="#"><picture><source srcset="../img/logo-branco.svg" media="(prefers-color-scheme: dark)"><img src="../img/logo-verde.svg" width="124" height="53" alt="Brito's, Barbearia by Diogo Brito"></picture></a>
     <nav aria-label="Main">
       <a href="#precos">Prices</a>
       <a href="#equipa" class="opc">Team</a>
@@ -43,7 +43,7 @@
     <div class="sub">
       <div>
         <p class="oficio">Barbershop in São Brás de Alportel</p>
-        <p class="estado" id="estado" aria-live="polite">Mon–Fri 9:00–13:00 and 14:00–20:00. Sat 9:00–13:00.</p>
+        <p class="estado" id="estado" aria-live="polite">Mon-Fri 9:00-13:00 and 14:00-20:00. Sat 9:00-13:00.</p>
       </div>
       <div class="acoes">
         <a class="tel" href="tel:+351289841568">+351 289 841 568</a>
@@ -52,6 +52,16 @@
     </div>
   </div>
 </header>
+
+<div class="barra-fixa" id="barra-fixa">
+  <div class="wrap">
+    <a class="marca-link" href="#" tabindex="-1" aria-hidden="true"><picture><source srcset="../img/logo-branco.svg" media="(prefers-color-scheme: dark)"><img src="../img/logo-verde.svg" width="103" height="44" alt=""></picture></a>
+    <div class="acoes-fixa">
+      <a class="tel" href="tel:+351289841568">+351 289 841 568</a>
+      <a class="btn" href="https://www.fresha.com/a/britos-barbearia-sao-bras-de-alportel-sao-bras-de-alportel-rua-jornal-o-sambrazense-u63k7c5z" target="_blank" rel="noopener">Book online<span class="sr-only"> (opens in a new tab)</span></a>
+    </div>
+  </div>
+</div>
 
 <main>
   <section id="precos">
@@ -95,30 +105,14 @@
 
         <div class="grupo">
           <h3>Combos</h3>
-          <div class="servico">
-            <div class="linha"><span class="nome">Fade and beard</span><span class="pontos"></span><span class="preco">22<small>€</small></span></div>
-            <p class="det"><span class="min">1 h.</span></p>
-          </div>
-          <div class="servico">
-            <div class="linha"><span class="nome">Classic cut and beard</span><span class="pontos"></span><span class="preco">17<small>€</small></span></div>
-            <p class="det"><span class="min">40 min.</span></p>
-          </div>
-          <div class="servico">
-            <div class="linha"><span class="nome">Fade, beard and eyebrows</span><span class="pontos"></span><span class="preco">28<small>€</small></span></div>
-            <p class="det"><span class="min">1 h 15 min.</span></p>
-          </div>
-          <div class="servico">
-            <div class="linha"><span class="nome">Classic cut, beard and eyebrows</span><span class="pontos"></span><span class="preco">23<small>€</small></span></div>
-            <p class="det"><span class="min">55 min.</span></p>
-          </div>
-          <div class="servico">
-            <div class="linha"><span class="nome">Scissor cut and eyebrows</span><span class="pontos"></span><span class="preco">20<small>€</small></span></div>
-            <p class="det"><span class="min">55 min.</span></p>
-          </div>
-          <div class="servico">
-            <div class="linha"><span class="nome">Classic cut and eyebrows</span><span class="pontos"></span><span class="preco">16<small>€</small></span></div>
-            <p class="det"><span class="min">35 min.</span></p>
-          </div>
+          <ul class="combos">
+            <li><span class="nome">Fade and beard</span><span class="pe"><span class="min">1 h</span><span class="preco">22<small>€</small></span></span></li>
+            <li><span class="nome">Classic cut and beard</span><span class="pe"><span class="min">40 min</span><span class="preco">17<small>€</small></span></span></li>
+            <li><span class="nome">Fade, beard and eyebrows</span><span class="pe"><span class="min">1 h 15 min</span><span class="preco">28<small>€</small></span></span></li>
+            <li><span class="nome">Classic cut, beard and eyebrows</span><span class="pe"><span class="min">55 min</span><span class="preco">23<small>€</small></span></span></li>
+            <li><span class="nome">Scissor cut and eyebrows</span><span class="pe"><span class="min">55 min</span><span class="preco">20<small>€</small></span></span></li>
+            <li><span class="nome">Classic cut and eyebrows</span><span class="pe"><span class="min">35 min</span><span class="preco">16<small>€</small></span></span></li>
+          </ul>
         </div>
       </div>
     </div>
@@ -199,13 +193,9 @@
         <table class="horario" id="horario">
           <caption>Opening hours</caption>
           <tbody>
-            <tr data-d="1"><th scope="row">Monday</th><td>9:00–13:00, 14:00–20:00</td></tr>
-            <tr data-d="2"><th scope="row">Tuesday</th><td>9:00–13:00, 14:00–20:00</td></tr>
-            <tr data-d="3"><th scope="row">Wednesday</th><td>9:00–13:00, 14:00–20:00</td></tr>
-            <tr data-d="4"><th scope="row">Thursday</th><td>9:00–13:00, 14:00–20:00</td></tr>
-            <tr data-d="5"><th scope="row">Friday</th><td>9:00–13:00, 14:00–20:00</td></tr>
-            <tr data-d="6"><th scope="row">Saturday</th><td>9:00–13:00</td></tr>
-            <tr data-d="0"><th scope="row">Sunday</th><td class="fechado">Closed</td></tr>
+            <tr data-dias="1 2 3 4 5"><th scope="row">Monday to Friday</th><td><span class="faixa">9:00-13:00,</span> <span class="faixa">14:00-20:00</span></td></tr>
+            <tr data-dias="6"><th scope="row">Saturday</th><td>9:00-13:00</td></tr>
+            <tr data-dias="0"><th scope="row">Sunday</th><td class="fechado">Closed</td></tr>
           </tbody>
         </table>
         <a class="btn reservar-fim" href="https://www.fresha.com/a/britos-barbearia-sao-bras-de-alportel-sao-bras-de-alportel-rua-jornal-o-sambrazense-u63k7c5z" target="_blank" rel="noopener">Book online<span class="sr-only"> (opens in a new tab)</span></a>
@@ -264,12 +254,13 @@
         ? `Open now, until ${hh(open[1])}`
         : `Closed now. ${nextOpening(d, h)}`;
       document.querySelectorAll("#horario tr").forEach(tr =>
-        tr.classList.toggle("hoje", +tr.dataset.d === d));
+        tr.classList.toggle("hoje", tr.dataset.dias.split(" ").includes(String(d))));
     }
 
     update();
     setInterval(update, 60000);
   })();
 </script>
+<script src="../barra-fixa.js" defer></script>
 </body>
 </html>

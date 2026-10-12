@@ -1,10 +1,28 @@
+/* ---------- Fontes (self-hosted, OFL) ---------- */
+@font-face { font-family: "Albert Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url("fontes/albert-sans-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Albert Sans"; font-style: italic; font-weight: 400; font-display: swap; src: url("fontes/albert-sans-latin-400-italic.woff2") format("woff2"); }
+@font-face { font-family: "Albert Sans"; font-style: normal; font-weight: 500; font-display: swap; src: url("fontes/albert-sans-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Albert Sans"; font-style: normal; font-weight: 700; font-display: swap; src: url("fontes/albert-sans-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Big Shoulders Display"; font-style: normal; font-weight: 500; font-display: swap; src: url("fontes/big-shoulders-display-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Big Shoulders Display"; font-style: normal; font-weight: 800; font-display: swap; src: url("fontes/big-shoulders-display-latin-800-normal.woff2") format("woff2"); }
+@font-face { font-family: "Big Shoulders Display"; font-style: normal; font-weight: 900; font-display: swap; src: url("fontes/big-shoulders-display-latin-900-normal.woff2") format("woff2"); }
+
+/* ---------- Tokens ----------
+   Light: the whitewashed façade. Dark: the shop's bottle-green wall at night.
+   --marca is the painted band (frame, buttons); --marca-texto is the brand
+   green when it has to be read as text on the page background. */
 :root {
-  --cal: #FBFBF8;
-  --cal-sombra: #F0F0EA;
-  --barra: #134A3B;
-  --barra-escura: #0C3529;
-  --tinta: #16140F;
-  --tinta-suave: #55524A;
+  color-scheme: light dark;
+
+  --fundo: #FBFBF8;
+  --fundo-alt: #F0F0EA;
+  --texto: #16140F;
+  --texto-suave: #55524A;
+  --marca: #134A3B;
+  --marca-forte: #0C3529;
+  --marca-texto: #134A3B;
+  --sobre-marca: #FBFBF8;
+  --rodape: #134A3B;
   --cortica: #8A5D3A;
   --linha: #D9D8D0;
   --linha-forte: #A9A79D;
@@ -16,13 +34,31 @@
   --barra-w: clamp(14px, 2.4vw, 28px);
   --gutter: clamp(16px, 5vw, 64px);
   --max: 1180px;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fundo: #0E1613;
+    --fundo-alt: #15201C;
+    --texto: #ECEEE9;
+    --texto-suave: #A7B0AA;
+    --marca: #1F6B54;
+    --marca-forte: #27806A;
+    --marca-texto: #86C9AE;
+    --sobre-marca: #FBFBF8;
+    --rodape: #123F32;
+    --cortica: #D6A57E;
+    --linha: #26332E;
+    --linha-forte: #4B5A53;
+    --ok: #74CF8C;
+  }
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 body {
   margin: 0;
-  background: var(--cal);
-  color: var(--tinta);
+  background: var(--fundo);
+  color: var(--texto);
   font: 400 1.0625rem/1.6 var(--text);
   -webkit-font-smoothing: antialiased;
 }
@@ -31,15 +67,16 @@ a {
   text-underline-offset: .22em;
   text-decoration-thickness: 1.5px;
 }
-::selection { background: var(--barra); color: var(--cal); }
+::selection { background: var(--marca); color: var(--sobre-marca); }
 html {
-  caret-color: var(--barra);
-  scrollbar-color: var(--linha-forte) var(--cal);
+  caret-color: var(--marca-texto);
+  scrollbar-color: var(--linha-forte) var(--fundo);
+  scroll-padding-top: 5.5rem;
 }
 h1, h2, h3, .oficio { text-wrap: balance; }
 p, blockquote { text-wrap: pretty; }
 :focus-visible { outline: 3px solid var(--cortica); outline-offset: 3px; border-radius: 2px; }
-.rodape :focus-visible { outline-color: var(--cal); }
+.rodape :focus-visible { outline-color: var(--sobre-marca); }
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
 }
@@ -52,15 +89,15 @@ p, blockquote { text-wrap: pretty; }
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  border: var(--barra-w) solid var(--barra);
-  background: var(--cal);
+  border: var(--barra-w) solid var(--marca);
+  background: var(--fundo);
 }
 /* fine inner line, like the pencil edge of a painted band */
 .fachada::after {
   content: "";
   position: absolute;
   inset: 8px;
-  border: 1.5px solid var(--barra);
+  border: 1.5px solid var(--marca);
   pointer-events: none;
   opacity: .35;
 }
@@ -79,13 +116,13 @@ p, blockquote { text-wrap: pretty; }
   position: relative;
   z-index: 1;
 }
-.topo .marca {
+.marca-link {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
   text-decoration: none;
 }
-.topo .marca img { display: block; width: auto; height: clamp(44px, 6vw, 56px); }
+.marca-link img { display: block; width: auto; height: clamp(44px, 6vw, 56px); }
 .topo nav { display: flex; gap: clamp(.9rem, 3vw, 2rem); }
 .topo nav a {
   white-space: nowrap;
@@ -100,7 +137,7 @@ p, blockquote { text-wrap: pretty; }
   transition: text-decoration-color .15s;
 }
 .topo nav a:hover { text-decoration-color: currentColor; }
-.topo nav a.idioma { color: var(--barra); font-weight: 700; }
+.topo nav a.idioma { color: var(--marca-texto); font-weight: 700; }
 
 /* the shop window: the real interior seen through the painted frame */
 .vitrine {
@@ -111,7 +148,7 @@ p, blockquote { text-wrap: pretty; }
   max-width: calc(var(--max) - 2 * var(--gutter));
   margin-inline: auto;
   overflow: hidden;
-  background: var(--cal-sombra);
+  background: var(--fundo-alt);
 }
 .vitrine img {
   position: absolute;
@@ -131,14 +168,14 @@ p, blockquote { text-wrap: pretty; }
 .letreiro h1 {
   margin: -.34em 0 0;
   font: 900 clamp(5rem, 19vw, 16rem)/.78 var(--sign);
-  -webkit-text-stroke: .045em var(--cal);
+  -webkit-text-stroke: .045em var(--fundo);
   paint-order: stroke fill;
   letter-spacing: -.01em;
   text-transform: uppercase;
-  color: var(--barra);
+  color: var(--marca-texto);
   margin-left: -.04em;
 }
-.letreiro h1 .aps { color: var(--tinta); }
+.letreiro h1 .aps { color: var(--texto); }
 .letreiro .sub {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -146,7 +183,7 @@ p, blockquote { text-wrap: pretty; }
   gap: 1.5rem 3rem;
   margin-top: clamp(1.25rem, 3vh, 2rem);
   padding-top: 1.25rem;
-  border-top: 1.5px solid var(--tinta);
+  border-top: 1.5px solid var(--texto);
 }
 .letreiro .oficio {
   margin: 0;
@@ -158,25 +195,27 @@ p, blockquote { text-wrap: pretty; }
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: .6rem;
   padding: .95rem 1.5rem;
-  background: var(--barra);
-  color: var(--cal);
+  background: var(--marca);
+  color: var(--sobre-marca);
   text-decoration: none;
   font-weight: 700;
   font-size: 1rem;
+  white-space: nowrap;
   border-radius: 2px;
   transition: background-color .15s, color .15s, transform .1s;
 }
-.btn:hover { background: var(--barra-escura); }
+.btn:hover { background: var(--marca-forte); }
 .btn:active { transform: translateY(1px); }
 .btn-sec {
   background: transparent;
-  color: var(--barra);
-  box-shadow: inset 0 0 0 2px var(--barra);
+  color: var(--marca-texto);
+  box-shadow: inset 0 0 0 2px var(--marca-texto);
 }
-.btn-sec:hover { background: var(--barra); color: var(--cal); }
-.btn-sec:active { background: var(--barra-escura); }
+.btn-sec:hover { background: var(--marca); color: var(--sobre-marca); box-shadow: inset 0 0 0 2px var(--marca); }
+.btn-sec:active { background: var(--marca-forte); }
 .tel {
   display: inline-flex;
   align-items: center;
@@ -186,21 +225,54 @@ p, blockquote { text-wrap: pretty; }
 }
 .tel:hover { text-decoration-color: currentColor; }
 
+/* Live open/closed state: the dot carries real meaning, so it stays */
 .estado {
   display: inline-flex;
   align-items: center;
   gap: .55rem;
   margin-top: 1.1rem;
   font-size: .95rem;
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
 }
 .estado::before {
   content: "";
   width: .55rem; height: .55rem; border-radius: 50%;
-  background: var(--tinta-suave);
+  background: var(--texto-suave);
 }
 .estado.aberto { color: var(--ok); }
 .estado.aberto::before { background: var(--ok); }
+
+/* ---------- Barra fixa de marcação ----------
+   Appears once the hero's own booking button has scrolled away, and steps
+   aside when the closing booking button is on screen. */
+.barra-fixa {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 10;
+  background: var(--fundo);
+  border-bottom: 1px solid var(--linha);
+  transform: translateY(-100%);
+  visibility: hidden;
+  transition: transform .35s var(--ease), visibility 0s linear .35s;
+}
+.barra-fixa.visivel {
+  transform: none;
+  visibility: visible;
+  transition: transform .35s var(--ease), visibility 0s;
+}
+.barra-fixa .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: .5rem;
+}
+.barra-fixa .marca-link img { height: 44px; }
+.barra-fixa .acoes-fixa { display: flex; align-items: center; gap: 1.25rem; }
+.barra-fixa .btn { padding: .7rem 1.25rem; }
+@media (prefers-reduced-motion: reduce) {
+  .barra-fixa, .barra-fixa.visivel { transition: none; }
+}
 
 /* ---------- Secções ---------- */
 section { padding: clamp(4rem, 10vw, 7.5rem) 0; }
@@ -208,7 +280,7 @@ section { padding: clamp(4rem, 10vw, 7.5rem) 0; }
   font: 800 clamp(2.6rem, 6vw, 4.5rem)/.95 var(--sign);
   margin: 0 0 .75rem;
 }
-.intro { margin: 0; max-width: 52ch; color: var(--tinta-suave); }
+.intro { margin: 0; max-width: 52ch; color: var(--texto-suave); }
 
 /* ---------- Tabela de preços ---------- */
 .tabela-grid {
@@ -217,51 +289,74 @@ section { padding: clamp(4rem, 10vw, 7.5rem) 0; }
   gap: clamp(2rem, 6vw, 6rem);
   align-items: start;
 }
-.tabela-grid .cabeca { position: sticky; top: 2rem; }
+.tabela-grid .cabeca { position: sticky; top: 5.5rem; }
 .nota {
   margin-top: 1.25rem;
   font-size: .95rem;
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
   max-width: 40ch;
 }
 .grupo + .grupo { margin-top: 3rem; }
 .grupo h3 {
   font: 800 1.6rem/1 var(--sign);
-  color: var(--barra);
+  color: var(--marca-texto);
   margin: 0 0 .5rem;
   padding-bottom: .6rem;
-  border-bottom: 1.5px solid var(--tinta);
+  border-bottom: 1.5px solid var(--texto);
 }
-.servico { padding: 1rem 0; border-bottom: 1px solid var(--linha); }
+/* One rule under each group heading; the dotted leaders carry each row */
+.servico { padding: .8rem 0; }
 .servico .linha {
   display: flex;
   align-items: baseline;
   gap: .6rem;
 }
-.servico .nome { font-weight: 700; font-size: 1.08rem; }
+.nome { font-weight: 700; font-size: 1.08rem; }
 .servico .pontos {
   flex: 1;
   min-width: 1.5rem;
   border-bottom: 2px dotted var(--linha-forte);
   transform: translateY(-.3em);
 }
-.servico .preco {
+.preco {
   font: 800 1.9rem/1 var(--sign);
   font-variant-numeric: tabular-nums;
   min-width: 2.6ch;
   text-align: right;
 }
-.servico .preco small { font-size: .6em; font-weight: 500; margin-left: .08em; }
+.preco small { font-size: .6em; font-weight: 500; margin-left: .08em; }
 .servico .det {
   margin: .3rem 0 0;
   font-size: .93rem;
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
   max-width: 56ch;
 }
-.servico .det .min { color: var(--cortica); font-weight: 500; }
+.min { color: var(--cortica); font-weight: 500; }
+
+/* Combos: a different object from single services, so a different shape */
+.combos {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+}
+.combos li {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: .9rem;
+  padding: 1rem 1.1rem 1.05rem;
+  background: var(--fundo-alt);
+  border-radius: 2px;
+}
+.combos .nome { font-size: 1rem; line-height: 1.3; }
+.combos .pe { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; }
+.combos .min { font-size: .93rem; }
 
 /* ---------- Equipa ---------- */
-.equipa { background: var(--cal-sombra); }
+.equipa { background: var(--fundo-alt); }
 .sobre p { max-width: 62ch; margin: 0; }
 .barbeiros {
   list-style: none;
@@ -277,7 +372,7 @@ section { padding: clamp(4rem, 10vw, 7.5rem) 0; }
   height: auto;
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  background: var(--cal);
+  background: var(--fundo);
   margin-bottom: 1rem;
 }
 .barbeiros .fundador img { aspect-ratio: 6 / 5; object-position: 58% 30%; }
@@ -286,10 +381,10 @@ section { padding: clamp(4rem, 10vw, 7.5rem) 0; }
 .barbeiros .n {
   font: 800 clamp(2rem, 4vw, 3.2rem)/1 var(--sign);
   padding-top: .75rem;
-  border-top: 1.5px solid var(--tinta);
+  border-top: 1.5px solid var(--texto);
 }
-.barbeiros .fundador .n { color: var(--barra); }
-.barbeiros .f { color: var(--tinta-suave); font-size: .95rem; margin-top: .3rem; }
+.barbeiros .fundador .n { color: var(--marca-texto); }
+.barbeiros .f { color: var(--texto-suave); font-size: .95rem; margin-top: .3rem; }
 
 /* ---------- Fotografias ---------- */
 .foto {
@@ -298,7 +393,7 @@ section { padding: clamp(4rem, 10vw, 7.5rem) 0; }
   height: auto;
   aspect-ratio: 16 / 9;
   object-fit: cover;
-  background: var(--cal-sombra);
+  background: var(--fundo-alt);
 }
 .cabeca .foto { margin-top: 2rem; }
 
@@ -318,30 +413,41 @@ section { padding: clamp(4rem, 10vw, 7.5rem) 0; }
 }
 .nota-grande .valor {
   font: 900 clamp(5rem, 14vw, 10rem)/.8 var(--sign);
-  color: var(--barra);
+  color: var(--marca-texto);
 }
-.nota-grande p { margin: 0; max-width: 30ch; color: var(--tinta-suave); }
-.nota-grande strong { color: var(--tinta); }
+.nota-grande p { margin: 0; max-width: 30ch; color: var(--texto-suave); }
+.nota-grande strong { color: var(--texto); }
+/* One featured review, two supporting ones beside it */
 .citacoes {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 2rem clamp(1.5rem, 4vw, 3.5rem);
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 2rem clamp(2rem, 6vw, 5rem);
   margin: 0; padding: 0; list-style: none;
 }
+.citacoes li:first-child { grid-row: span 2; }
 .citacoes blockquote { margin: 0; }
 .citacoes p {
   margin: 0 0 .9rem;
   font-size: 1.2rem;
   line-height: 1.45;
 }
+.citacoes li:first-child p:first-child {
+  font: 500 clamp(1.6rem, 3vw, 2.3rem)/1.2 var(--text);
+  letter-spacing: -.01em;
+  max-width: 24ch;
+}
+.citacoes li:first-child blockquote {
+  padding-left: clamp(1rem, 2vw, 1.5rem);
+  box-shadow: inset 2px 0 0 var(--marca-texto);
+}
 .citacoes .traducao {
   margin-top: -.4rem;
   font-size: 1rem;
   font-style: italic;
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
 }
-.citacoes footer { font-size: .9rem; color: var(--tinta-suave); }
-.citacoes footer b { color: var(--tinta); font-weight: 700; }
+.citacoes footer { font-size: .9rem; color: var(--texto-suave); }
+.citacoes footer b { color: var(--texto); font-weight: 700; }
 .mais { margin: 2.5rem 0 0; }
 .mais a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 500; }
 
@@ -361,24 +467,25 @@ address { font-style: normal; font-size: 1.2rem; line-height: 1.5; margin: 1.25r
   font-weight: 500;
 }
 .horario { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
-.horario caption { text-align: left; font: 800 1.6rem/1 var(--sign); color: var(--barra); padding-bottom: .6rem; border-bottom: 1.5px solid var(--tinta); }
-.horario th, .horario td { padding: .7rem 0; border-bottom: 1px solid var(--linha); text-align: left; font-weight: 400; }
+.horario caption { text-align: left; font: 800 1.6rem/1 var(--sign); color: var(--marca-texto); padding-bottom: .6rem; border-bottom: 1.5px solid var(--texto); }
+.horario th, .horario td { padding: .9rem 0; border-bottom: 1px solid var(--linha); text-align: left; font-weight: 400; vertical-align: top; }
 .horario td { text-align: right; }
+/* Time ranges never split; a narrow row breaks between them */
+.faixa { white-space: nowrap; }
 .horario tr.hoje th, .horario tr.hoje td { font-weight: 700; }
 .horario tr.hoje th::after { content: " (hoje)"; font-weight: 400; color: var(--cortica); }
 :lang(en) .horario tr.hoje th::after { content: " (today)"; }
-.fechado { color: var(--tinta-suave); }
+.fechado { color: var(--texto-suave); }
 .reservar-fim {
   width: 100%;
-  justify-content: center;
   margin-top: 1.75rem;
 }
-.extras { margin: 1.5rem 0 0; font-size: .93rem; color: var(--tinta-suave); }
+.extras { margin: 1.5rem 0 0; font-size: .93rem; color: var(--texto-suave); }
 
 /* ---------- Rodapé: a barra de baixo ---------- */
 .rodape {
-  background: var(--barra);
-  color: var(--cal);
+  background: var(--rodape);
+  color: var(--sobre-marca);
   padding: clamp(2.5rem, 6vw, 4rem) 0 2rem;
 }
 .rodape .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1.5rem; }
@@ -386,18 +493,18 @@ address { font-style: normal; font-size: 1.2rem; line-height: 1.5; margin: 1.25r
 .rodape { --rodape-fs: .9rem; --rodape-lh: 1.6; }
 .rodape .marca { display: block; width: auto; height: calc(3 * var(--rodape-fs) * var(--rodape-lh)); }
 .rodape p { margin: 0; font-size: var(--rodape-fs); line-height: var(--rodape-lh); opacity: .85; }
-.rodape a { color: var(--cal); }
+.rodape a { color: var(--sobre-marca); }
 .rodape .credito {
   margin-top: 2rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(251, 251, 248, .25);
+  border-top: 1px solid color-mix(in srgb, var(--sobre-marca) 25%, transparent);
 }
 .rodape .credito p { font-size: .8rem; opacity: .7; }
 
 /* ---------- Entrada: a barra é pintada ---------- */
 @media (prefers-reduced-motion: no-preference) {
   .fachada { animation: pintar .9s cubic-bezier(.6,0,.2,1) both; }
-  @keyframes pintar { from { border-color: var(--cal); } to { border-color: var(--barra); } }
+  @keyframes pintar { from { border-color: var(--fundo); } to { border-color: var(--marca); } }
 }
 
 /* ---------- Responsivo ---------- */
@@ -405,16 +512,29 @@ address { font-style: normal; font-size: 1.2rem; line-height: 1.5; margin: 1.25r
   .tabela-grid, .visitar-grid { grid-template-columns: 1fr; }
   .tabela-grid .cabeca { position: static; }
   .citacoes, .opinioes-topo { grid-template-columns: 1fr; }
+  .citacoes li:first-child { grid-row: auto; }
   .barbeiros { grid-template-columns: 1fr 1fr; }
   .barbeiros .fundador { grid-column: 1 / -1; }
   .barbeiros .fundador img { aspect-ratio: 4 / 3; }
   .letreiro .sub { grid-template-columns: 1fr; }
   .acoes { justify-content: flex-start; }
+
+  /* On phones the booking bar sits at the bottom, under the thumb */
+  html { scroll-padding-top: 1rem; }
+  .barra-fixa {
+    inset: auto 0 0;
+    border-bottom: 0;
+    border-top: 1px solid var(--linha);
+    transform: translateY(100%);
+  }
+  .barra-fixa .marca-link, .barra-fixa .tel { display: none; }
+  .barra-fixa .acoes-fixa { flex: 1; }
+  .barra-fixa .btn { flex: 1; padding: .85rem 1rem; }
 }
 @media (max-width: 520px) {
   .topo nav a.opc { display: none; }
   .fachada::after { inset: 5px; }
-  .btn { width: 100%; justify-content: center; }
+  .acoes .btn, .links-visita .btn { width: 100%; }
 }
 @media (max-width: 420px) {
   .topo nav a.opc-xs { display: none; }
