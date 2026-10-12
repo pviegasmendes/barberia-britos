@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
+<a class="saltar" href="#conteudo">Saltar para o conteúdo</a>
 
 <header class="fachada">
   <div class="topo">
@@ -34,8 +35,8 @@
   </div>
 
   <div class="vitrine">
-    <img src="img/foto-1.jpg" width="1280" height="720" fetchpriority="high"
-         alt="Interior da Brito's: três barbeiros a cortar o cabelo a clientes, frente ao espelho comprido.">
+    <picture><source srcset="img/foto-1.webp" type="image/webp"><img src="img/foto-1.jpg" width="1280" height="720" fetchpriority="high"
+         alt="Interior da Brito's: três barbeiros a cortar o cabelo a clientes, frente ao espelho comprido."></picture>
   </div>
 
   <div class="letreiro">
@@ -63,14 +64,14 @@
   </div>
 </div>
 
-<main>
+<main id="conteudo" tabindex="-1">
   <section id="precos">
     <div class="wrap tabela-grid">
       <div class="cabeca">
         <h2 class="titulo">Tabela de preços</h2>
         <p class="intro">Todos os serviços de barba incluem barboterapia com toalha quente.</p>
-        <img class="foto" src="img/foto-2.jpg" width="1280" height="720" loading="lazy"
-             alt="Barbeiro de avental de couro estende uma toalha quente sobre um cliente reclinado.">
+        <picture><source srcset="img/foto-2.webp" type="image/webp"><img class="foto" src="img/foto-2.jpg" width="1280" height="720" loading="lazy"
+             alt="Barbeiro de avental de couro estende uma toalha quente sobre um cliente reclinado."></picture>
         <p class="nota"><a href="https://www.fresha.com/a/britos-barbearia-sao-bras-de-alportel-sao-bras-de-alportel-rua-jornal-o-sambrazense-u63k7c5z" target="_blank" rel="noopener">Marca no Fresha<span class="sr-only"> (abre noutra janela)</span></a>: escolhes o barbeiro e a hora, e a marcação fica logo confirmada.</p>
       </div>
 
@@ -125,18 +126,18 @@
     </div>
     <ul class="wrap barbeiros">
       <li class="fundador">
-        <img src="img/foto-6.jpg" width="1200" height="675" loading="lazy"
-             alt="Diogo Brito, de farda preta, estende uma toalha branca na barbearia.">
+        <picture><source srcset="img/foto-6.webp" type="image/webp"><img src="img/foto-6.jpg" width="1200" height="675" loading="lazy"
+             alt="Diogo Brito, de farda preta, estende uma toalha branca na barbearia."></picture>
         <span class="n">Diogo Brito</span><span class="f">Barbeiro e fundador</span>
       </li>
       <li>
-        <img src="img/foto-7.jpg" width="1200" height="675" loading="lazy"
-             alt="Inês, sorridente, faz um degradê à máquina a um cliente.">
+        <picture><source srcset="img/foto-7.webp" type="image/webp"><img src="img/foto-7.jpg" width="1200" height="675" loading="lazy"
+             alt="Inês, sorridente, faz um degradê à máquina a um cliente."></picture>
         <span class="n">Inês</span><span class="f">Barbeira</span>
       </li>
       <li>
-        <img src="img/foto-8.jpg" width="1200" height="675" loading="lazy"
-             alt="Diogo, de pé atrás de um cliente, com a máquina e um pente na mão.">
+        <picture><source srcset="img/foto-8.webp" type="image/webp"><img src="img/foto-8.jpg" width="1200" height="675" loading="lazy"
+             alt="Diogo, de pé atrás de um cliente, com a máquina e um pente na mão."></picture>
         <span class="n">Diogo</span><span class="f">Barbeiro</span>
       </li>
     </ul>
@@ -150,8 +151,8 @@
           <span class="valor">5,0</span>
           <p><strong>419 avaliações no Fresha.</strong> O degradê é o corte que mais clientes elogiam.</p>
         </div>
-        <img class="foto" src="img/foto-9.jpg" width="1200" height="675" loading="lazy"
-             alt="Cliente reclinado na cadeira com um degradê acabado de fazer, em frente à parede verde da barbearia.">
+        <picture><source srcset="img/foto-9.webp" type="image/webp"><img class="foto" src="img/foto-9.jpg" width="1200" height="675" loading="lazy"
+             alt="Cliente reclinado na cadeira com um degradê acabado de fazer, em frente à parede verde da barbearia."></picture>
       </div>
       <ul class="citacoes">
         <li><blockquote>

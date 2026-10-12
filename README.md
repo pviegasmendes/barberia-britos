@@ -92,6 +92,7 @@ Cualquier cambio de contenido hay que hacerlo en **las dos versiones** (`public/
 - **Horario:** hay que cambiarlo en dos sitios de cada página:
   1. la tabla `id="horario"`. Cada fila lleva en `data-dias` los días que cubre (0 = domingo, 1 = lunes … 6 = sábado), para marcar "(hoje)";
   2. el objeto `horario` / `hours` del `<script>` al final, que calcula el aviso "Aberto agora" / "Open now" (siempre en hora de Lisboa).
+- **Fotos:** cada foto existe en dos versiones en `public/img/`: `.webp` (la que cargan los navegadores actuales, un 34 % más ligera) y `.jpg` (respaldo). Si cambias una foto, sustituye las dos con el mismo nombre.
 - **Enlace de reservas:** apunta a la página de la barbería en Fresha. Si cambia, busca `fresha.com` en ambos archivos.
 
 ## Fuentes de los datos

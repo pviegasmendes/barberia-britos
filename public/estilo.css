@@ -81,6 +81,22 @@ p, blockquote { text-wrap: pretty; }
   html { scroll-behavior: smooth; }
 }
 .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+/* Skip link: hidden until a keyboard user tabs to it */
+.saltar {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 20;
+  padding: .75rem 1rem;
+  background: var(--marca);
+  color: var(--sobre-marca);
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 2px;
+  transform: translateY(-200%);
+}
+.saltar:focus { transform: none; }
+main:focus { outline: none; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* ---------- Fachada (hero) ---------- */
@@ -530,6 +546,7 @@ address { font-style: normal; font-size: 1.2rem; line-height: 1.5; margin: 1.25r
   .barra-fixa .marca-link, .barra-fixa .tel { display: none; }
   .barra-fixa .acoes-fixa { flex: 1; }
   .barra-fixa .btn { flex: 1; padding: .85rem 1rem; }
+  .rodape { padding-bottom: calc(2rem + 4.5rem); }
 }
 @media (max-width: 520px) {
   .topo nav a.opc { display: none; }

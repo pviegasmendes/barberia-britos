@@ -1,31 +1,19 @@
-// Booking bar: shown once the hero's booking button has scrolled away,
-// hidden again while the closing booking button or the footer is on screen,
-// so there is never a second "book" button competing with one already visible.
+// Booking bar: the site's goal is an online booking, so a "book" button must
+// always be on screen once the visitor scrolls. The bar shows whenever neither
+// of the page's own booking buttons (hero, closing) is visible, and steps aside
+// while one of them is, so two identical buttons never compete.
 (function () {
   const barra = document.getElementById("barra-fixa");
-  const heroBtn = document.querySelector(".letreiro .btn");
-  const fim = document.querySelectorAll(".reservar-fim, .rodape");
-  if (!barra || !heroBtn || !("IntersectionObserver" in window)) return;
+  const botoes = document.querySelectorAll(".letreiro .btn, .reservar-fim");
+  if (!barra || !botoes.length || !("IntersectionObserver" in window)) return;
 
-  let heroVisivel = true;
-  const fimVisiveis = new Set();
-
-  const atualizar = () => {
-    const mostrar = !heroVisivel && fimVisiveis.size === 0;
-    barra.classList.toggle("visivel", mostrar);
-  };
-
-  new IntersectionObserver(([e]) => {
-    heroVisivel = e.isIntersecting;
-    atualizar();
-  }).observe(heroBtn);
-
-  const obsFim = new IntersectionObserver(entradas => {
+  const visiveis = new Set();
+  const obs = new IntersectionObserver(entradas => {
     for (const e of entradas) {
-      if (e.isIntersecting) fimVisiveis.add(e.target);
-      else fimVisiveis.delete(e.target);
+      if (e.isIntersecting) visiveis.add(e.target);
+      else visiveis.delete(e.target);
     }
-    atualizar();
+    barra.classList.toggle("visivel", visiveis.size === 0);
   });
-  fim.forEach(el => obsFim.observe(el));
+  botoes.forEach(b => obs.observe(b));
 })();
