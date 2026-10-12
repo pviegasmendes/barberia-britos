@@ -12,7 +12,8 @@ public/               Lo que se publica en Netlify
   index.html          Versión en portugués (principal)
   en/index.html       Versión en inglés
   estilo.css          Estilos compartidos por las dos versiones
-  img/                Fotos usadas en la web (galería de Fresha)
+  img/                Fotos usadas en la web (galería de Fresha) y el logo en SVG
+                      (logo-verde.svg para fondo claro, logo-branco.svg para fondo verde)
   404.html            Página de error, bilingüe
   favicon.svg         Icono de la pestaña
   robots.txt          Permite indexar todo el sitio
@@ -102,5 +103,6 @@ Datos recogidos en octubre de 2026 de:
 - [ ] Permiso para usar las fotos de la galería de Fresha en la web.
 - [ ] Qué fotos corresponden a Inês (`public/img/foto-7.jpg`) y a Diogo, el segundo barbero (`public/img/foto-8.jpg`). Diogo Brito (`public/img/foto-6.jpg`) ya está confirmado.
 - [ ] Dominio definitivo (ver «Cuando haya dominio»).
+- [ ] Archivo original del logo. El de la web está redibujado a partir del bordado, con las fuentes Lobster y Oswald (licencia OFL): se parece mucho, pero no es idéntico.
 - [ ] Servicio número 12 de Fresha, que no aparece en la web (probablemente "Corte Degradê + Sobrancelhas").
 - [ ] Actualizar el número de reseñas de vez en cuando: está escrito a mano en las dos versiones.

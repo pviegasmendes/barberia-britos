@@ -64,6 +64,12 @@ p, blockquote { text-wrap: pretty; }
   pointer-events: none;
   opacity: .35;
 }
+/* Inside the full-width frame, hero content uses the same column as .wrap */
+.topo, .letreiro {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+}
 .topo {
   display: flex;
   align-items: center;
@@ -77,12 +83,12 @@ p, blockquote { text-wrap: pretty; }
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  font: 800 1.5rem/1 var(--sign);
-  letter-spacing: .01em;
   text-decoration: none;
 }
+.topo .marca img { display: block; width: auto; height: clamp(44px, 6vw, 56px); }
 .topo nav { display: flex; gap: clamp(.9rem, 3vw, 2rem); }
 .topo nav a {
+  white-space: nowrap;
   display: inline-flex;
   align-items: center;
   min-height: 44px;
@@ -101,7 +107,9 @@ p, blockquote { text-wrap: pretty; }
   position: relative;
   flex: 1;
   min-height: 34svh;
-  margin: 0 var(--gutter);
+  width: calc(100% - 2 * var(--gutter));
+  max-width: calc(var(--max) - 2 * var(--gutter));
+  margin-inline: auto;
   overflow: hidden;
   background: var(--cal-sombra);
 }
@@ -328,7 +336,7 @@ section { padding: clamp(4rem, 10vw, 7.5rem) 0; }
 }
 .citacoes footer { font-size: .9rem; color: var(--tinta-suave); }
 .citacoes footer b { color: var(--tinta); font-weight: 700; }
-.mais { margin-top: 2.5rem; }
+.mais { margin: 2.5rem 0 0; }
 .mais a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 500; }
 
 /* ---------- Visitar ---------- */
@@ -368,8 +376,10 @@ address { font-style: normal; font-size: 1.2rem; line-height: 1.5; margin: 1.25r
   padding: clamp(2.5rem, 6vw, 4rem) 0 2rem;
 }
 .rodape .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1.5rem; }
-.rodape .marca { font: 900 clamp(3rem, 9vw, 6rem)/.85 var(--sign); text-transform: uppercase; }
-.rodape p { margin: 0; font-size: .9rem; opacity: .85; }
+/* The logo is exactly as tall as the three lines of shop details beside it */
+.rodape { --rodape-fs: .9rem; --rodape-lh: 1.6; }
+.rodape .marca { display: block; width: auto; height: calc(3 * var(--rodape-fs) * var(--rodape-lh)); }
+.rodape p { margin: 0; font-size: var(--rodape-fs); line-height: var(--rodape-lh); opacity: .85; }
 .rodape a { color: var(--cal); }
 .rodape .credito {
   margin-top: 2rem;
@@ -399,4 +409,7 @@ address { font-style: normal; font-size: 1.2rem; line-height: 1.5; margin: 1.25r
   .topo nav a.opc { display: none; }
   .fachada::after { inset: 5px; }
   .btn { width: 100%; justify-content: center; }
+}
+@media (max-width: 420px) {
+  .topo nav a.opc-xs { display: none; }
 }

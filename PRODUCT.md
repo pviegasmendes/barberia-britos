@@ -48,7 +48,8 @@ A real neighbourhood barbershop in São Brás de Alportel with a 5.0 rating from
 ## Brand Commitments
 
 - **Name:** Brito's Barbearia. The full mark on the uniforms reads "Brito's — Barbearia by Diogo Brito". In English the page title uses "Brito's Barbershop"; the mark stays "Barbearia by Diogo Brito".
-- **Brand assets in the shop:** a white script "Brito's" logo, a deep bottle-green wall, black uniforms and brown leather aprons. No logo file has been supplied; the logo exists only in photos.
+- **Brand assets in the shop:** a white script "Brito's" logo, a deep bottle-green wall, black uniforms and brown leather aprons.
+- **Logo files:** no original artwork has been supplied. `public/img/logo-verde.svg` and `public/img/logo-branco.svg` are a vector redraw made from the embroidered logo: the script is the Lobster font and the banner text is Oswald, both OFL. It is a close approximation, not the original; replace it if the client provides the source file.
 - **Voice in Portuguese:** informal "tu", as in the shop's own Fresha text ("Marca a tua sessão"). Plain, warm and direct.
 - **Voice in English:** plain and friendly, written for residents and visitors rather than translated word for word.
 - **Credit:** the footer credits "Site criado por Digital Montra" / "Website by Digital Montra", linking to https://digitalmontra.pt/.
