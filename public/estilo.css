@@ -1,0 +1,360 @@
+:root {
+  --cal: #FBFBF8;
+  --cal-sombra: #F0F0EA;
+  --barra: #134A3B;
+  --barra-escura: #0C3529;
+  --tinta: #16140F;
+  --tinta-suave: #55524A;
+  --cortica: #9A6B45;
+  --linha: #D9D8D0;
+  --ok: #2F7A3E;
+
+  --sign: "Big Shoulders Display", "Arial Narrow", sans-serif;
+  --text: "Albert Sans", system-ui, sans-serif;
+
+  --barra-w: clamp(14px, 2.4vw, 28px);
+  --gutter: clamp(16px, 5vw, 64px);
+  --max: 1180px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--cal);
+  color: var(--tinta);
+  font: 400 1.0625rem/1.6 var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--cortica); outline-offset: 3px; border-radius: 2px; }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- Fachada (hero) ---------- */
+.fachada {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  border: var(--barra-w) solid var(--barra);
+  background: var(--cal);
+}
+/* fine inner line, like the pencil edge of a painted band */
+.fachada::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1.5px solid var(--barra);
+  pointer-events: none;
+  opacity: .35;
+}
+.topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem var(--gutter);
+  position: relative;
+  z-index: 1;
+}
+.topo .marca {
+  font: 800 1.5rem/1 var(--sign);
+  letter-spacing: .01em;
+  text-decoration: none;
+}
+.topo nav { display: flex; gap: clamp(.9rem, 3vw, 2rem); }
+.topo nav a {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: .95rem;
+  padding: .25rem 0;
+  border-bottom: 1.5px solid transparent;
+}
+.topo nav a:hover { border-color: var(--tinta); }
+.topo nav a.idioma { color: var(--barra); font-weight: 700; }
+
+/* the shop window: the real interior seen through the painted frame */
+.vitrine {
+  position: relative;
+  flex: 1;
+  min-height: 34svh;
+  margin: 0 var(--gutter);
+  overflow: hidden;
+  background: var(--cal-sombra);
+}
+.vitrine img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 62%;
+}
+.letreiro {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--gutter) clamp(2rem, 6vh, 4rem);
+  position: relative;
+  z-index: 1;
+}
+.letreiro h1 {
+  margin: -.34em 0 0;
+  font: 900 clamp(5rem, 19vw, 16rem)/.78 var(--sign);
+  -webkit-text-stroke: .045em var(--cal);
+  paint-order: stroke fill;
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+  color: var(--barra);
+  margin-left: -.04em;
+}
+.letreiro h1 .aps { color: var(--tinta); }
+.letreiro .sub {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 1.5rem 3rem;
+  margin-top: clamp(1.25rem, 3vh, 2rem);
+  padding-top: 1.25rem;
+  border-top: 1.5px solid var(--tinta);
+}
+.letreiro .oficio {
+  margin: 0;
+  font: 500 clamp(1.5rem, 3.4vw, 2.6rem)/1.05 var(--sign);
+  max-width: 18ch;
+}
+.acoes { display: flex; flex-wrap: wrap; gap: .75rem 1.25rem; align-items: center; justify-content: flex-end; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .95rem 1.5rem;
+  background: var(--barra);
+  color: var(--cal);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 2px;
+  transition: background .15s;
+}
+.btn:hover { background: var(--barra-escura); }
+.tel { font-weight: 500; text-decoration: none; border-bottom: 1.5px solid var(--linha); padding-bottom: 2px; }
+.tel:hover { border-color: var(--tinta); }
+
+.estado {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  margin-top: 1.1rem;
+  font-size: .95rem;
+  color: var(--tinta-suave);
+}
+.estado::before {
+  content: "";
+  width: .55rem; height: .55rem; border-radius: 50%;
+  background: var(--tinta-suave);
+}
+.estado.aberto { color: var(--ok); }
+.estado.aberto::before { background: var(--ok); }
+
+/* ---------- Secções ---------- */
+section { padding: clamp(4rem, 10vw, 7.5rem) 0; }
+.titulo {
+  font: 800 clamp(2.6rem, 6vw, 4.5rem)/.95 var(--sign);
+  margin: 0 0 .75rem;
+}
+.intro { margin: 0; max-width: 52ch; color: var(--tinta-suave); }
+
+/* ---------- Tabela de preços ---------- */
+.tabela-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+.tabela-grid .cabeca { position: sticky; top: 2rem; }
+.nota {
+  margin-top: 2rem;
+  padding-left: 1rem;
+  border-left: 3px solid var(--cortica);
+  font-size: .95rem;
+  color: var(--tinta-suave);
+  max-width: 40ch;
+}
+.grupo + .grupo { margin-top: 3rem; }
+.grupo h3 {
+  font: 800 1.6rem/1 var(--sign);
+  color: var(--barra);
+  margin: 0 0 .5rem;
+  padding-bottom: .6rem;
+  border-bottom: 1.5px solid var(--tinta);
+}
+.servico { padding: 1rem 0; border-bottom: 1px solid var(--linha); }
+.servico .linha {
+  display: flex;
+  align-items: baseline;
+  gap: .6rem;
+}
+.servico .nome { font-weight: 700; font-size: 1.08rem; }
+.servico .pontos {
+  flex: 1;
+  min-width: 1.5rem;
+  border-bottom: 2px dotted #A9A79D;
+  transform: translateY(-.3em);
+}
+.servico .preco {
+  font: 800 1.9rem/1 var(--sign);
+  font-variant-numeric: tabular-nums;
+  min-width: 2.6ch;
+  text-align: right;
+}
+.servico .preco small { font-size: .6em; font-weight: 500; margin-left: .08em; }
+.servico .det {
+  margin: .3rem 0 0;
+  font-size: .93rem;
+  color: var(--tinta-suave);
+  max-width: 56ch;
+}
+.servico .det .min { color: var(--cortica); font-weight: 500; }
+
+/* ---------- Equipa ---------- */
+.equipa { background: var(--cal-sombra); }
+.sobre p { max-width: 62ch; margin: 0; }
+.barbeiros {
+  list-style: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 2.5vw, 2rem);
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+}
+.barbeiros li { display: flex; flex-direction: column; }
+.barbeiros img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background: var(--cal);
+  margin-bottom: 1rem;
+}
+.barbeiros .fundador img { aspect-ratio: 6 / 5; object-position: 58% 30%; }
+.barbeiros li:nth-child(2) img { object-position: 36% center; }
+.barbeiros li:nth-child(3) img { object-position: 50% center; }
+.barbeiros .n {
+  font: 800 clamp(2rem, 4vw, 3.2rem)/1 var(--sign);
+  padding-top: .75rem;
+  border-top: 1.5px solid var(--tinta);
+}
+.barbeiros .fundador .n { color: var(--barra); }
+.barbeiros .f { color: var(--tinta-suave); font-size: .95rem; margin-top: .3rem; }
+
+/* ---------- Fotografias ---------- */
+.foto {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--cal-sombra);
+}
+.cabeca .foto { margin-top: 2rem; }
+
+/* ---------- Opiniões ---------- */
+.opinioes-topo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 2rem clamp(2rem, 6vw, 6rem);
+  align-items: end;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+.nota-grande {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem 1.5rem;
+  flex-wrap: wrap;
+}
+.nota-grande .valor {
+  font: 900 clamp(5rem, 14vw, 10rem)/.8 var(--sign);
+  color: var(--barra);
+}
+.nota-grande p { margin: 0; max-width: 30ch; color: var(--tinta-suave); }
+.nota-grande strong { color: var(--tinta); }
+.citacoes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem clamp(1.5rem, 4vw, 3.5rem);
+  margin: 0; padding: 0; list-style: none;
+}
+.citacoes blockquote { margin: 0; }
+.citacoes p {
+  margin: 0 0 .9rem;
+  font-size: 1.2rem;
+  line-height: 1.45;
+}
+.citacoes footer { font-size: .9rem; color: var(--tinta-suave); }
+.citacoes footer b { color: var(--tinta); font-weight: 700; }
+.mais { margin-top: 2.5rem; }
+.mais a { font-weight: 500; }
+
+/* ---------- Visitar ---------- */
+.visitar { border-top: 1.5px solid var(--linha); }
+.visitar-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 6rem);
+}
+address { font-style: normal; font-size: 1.2rem; line-height: 1.5; margin: 1.25rem 0 1.5rem; }
+.links-visita { display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; align-items: center; }
+.links-visita a:not(.btn) { font-weight: 500; }
+.horario { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.horario caption { text-align: left; font: 800 1.6rem/1 var(--sign); color: var(--barra); padding-bottom: .6rem; border-bottom: 1.5px solid var(--tinta); }
+.horario th, .horario td { padding: .7rem 0; border-bottom: 1px solid var(--linha); text-align: left; font-weight: 400; }
+.horario td { text-align: right; }
+.horario tr.hoje th, .horario tr.hoje td { font-weight: 700; }
+.horario tr.hoje th::after { content: " (hoje)"; font-weight: 400; color: var(--cortica); }
+:lang(en) .horario tr.hoje th::after { content: " (today)"; }
+.fechado { color: var(--tinta-suave); }
+.extras { margin: 1.5rem 0 0; font-size: .93rem; color: var(--tinta-suave); }
+
+/* ---------- Rodapé: a barra de baixo ---------- */
+.rodape {
+  background: var(--barra);
+  color: var(--cal);
+  padding: clamp(2.5rem, 6vw, 4rem) 0 2rem;
+}
+.rodape .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1.5rem; }
+.rodape .marca { font: 900 clamp(3rem, 9vw, 6rem)/.85 var(--sign); text-transform: uppercase; }
+.rodape p { margin: 0; font-size: .9rem; opacity: .85; }
+.rodape a { color: var(--cal); }
+.rodape .credito {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(251, 251, 248, .25);
+}
+.rodape .credito p { font-size: .8rem; opacity: .7; }
+
+/* ---------- Entrada: a barra é pintada ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .fachada { animation: pintar .9s cubic-bezier(.6,0,.2,1) both; }
+  .letreiro h1 { animation: surgir .8s .35s cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes pintar { from { border-color: var(--cal); } to { border-color: var(--barra); } }
+  @keyframes surgir { from { opacity: 0; transform: translateY(.08em); } to { opacity: 1; transform: none; } }
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 860px) {
+  .tabela-grid, .visitar-grid { grid-template-columns: 1fr; }
+  .tabela-grid .cabeca { position: static; }
+  .citacoes, .opinioes-topo { grid-template-columns: 1fr; }
+  .barbeiros { grid-template-columns: 1fr 1fr; }
+  .barbeiros .fundador { grid-column: 1 / -1; }
+  .barbeiros .fundador img { aspect-ratio: 4 / 3; }
+  .letreiro .sub { grid-template-columns: 1fr; }
+  .acoes { justify-content: flex-start; }
+}
+@media (max-width: 520px) {
+  .topo nav a.opc { display: none; }
+  .fachada::after { inset: 5px; }
+  .btn { width: 100%; justify-content: center; }
+}

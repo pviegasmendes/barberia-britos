@@ -1,0 +1,18 @@
+# Netlify headers. Works with Git, CLI and drag-and-drop deploys.
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Photos, CSS and icon cached for 7 days. Filenames have no hash, so not immutable:
+# a replaced photo shows up within a week at most.
+/img/*
+  Cache-Control: public, max-age=604800
+
+/estilo.css
+  Cache-Control: public, max-age=604800
+
+/favicon.svg
+  Cache-Control: public, max-age=604800
