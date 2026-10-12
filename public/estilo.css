@@ -334,6 +334,12 @@ section { padding: clamp(4rem, 10vw, 7.5rem) 0; }
   font-size: 1.2rem;
   line-height: 1.45;
 }
+.citacoes .traducao {
+  margin-top: -.4rem;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--tinta-suave);
+}
 .citacoes footer { font-size: .9rem; color: var(--tinta-suave); }
 .citacoes footer b { color: var(--tinta); font-weight: 700; }
 .mais { margin: 2.5rem 0 0; }
