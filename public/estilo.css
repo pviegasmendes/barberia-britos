@@ -5,8 +5,9 @@
   --barra-escura: #0C3529;
   --tinta: #16140F;
   --tinta-suave: #55524A;
-  --cortica: #9A6B45;
+  --cortica: #8A5D3A;
   --linha: #D9D8D0;
+  --linha-forte: #A9A79D;
   --ok: #2F7A3E;
 
   --sign: "Big Shoulders Display", "Arial Narrow", sans-serif;
@@ -18,7 +19,6 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
 body {
   margin: 0;
   background: var(--cal);
@@ -26,8 +26,23 @@ body {
   font: 400 1.0625rem/1.6 var(--text);
   -webkit-font-smoothing: antialiased;
 }
-a { color: inherit; }
+a {
+  color: inherit;
+  text-underline-offset: .22em;
+  text-decoration-thickness: 1.5px;
+}
+::selection { background: var(--barra); color: var(--cal); }
+html {
+  caret-color: var(--barra);
+  scrollbar-color: var(--linha-forte) var(--cal);
+}
+h1, h2, h3, .oficio { text-wrap: balance; }
+p, blockquote { text-wrap: pretty; }
 :focus-visible { outline: 3px solid var(--cortica); outline-offset: 3px; border-radius: 2px; }
+.rodape :focus-visible { outline-color: var(--cal); }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
 .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
@@ -54,24 +69,31 @@ a { color: inherit; }
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1.25rem var(--gutter);
+  padding: .75rem var(--gutter);
   position: relative;
   z-index: 1;
 }
 .topo .marca {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font: 800 1.5rem/1 var(--sign);
   letter-spacing: .01em;
   text-decoration: none;
 }
 .topo nav { display: flex; gap: clamp(.9rem, 3vw, 2rem); }
 .topo nav a {
-  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font-weight: 500;
   font-size: .95rem;
-  padding: .25rem 0;
-  border-bottom: 1.5px solid transparent;
+  text-decoration: underline transparent;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: .4em;
+  transition: text-decoration-color .15s;
 }
-.topo nav a:hover { border-color: var(--tinta); }
+.topo nav a:hover { text-decoration-color: currentColor; }
 .topo nav a.idioma { color: var(--barra); font-weight: 700; }
 
 /* the shop window: the real interior seen through the painted frame */
@@ -136,17 +158,25 @@ a { color: inherit; }
   font-weight: 700;
   font-size: 1rem;
   border-radius: 2px;
-  transition: background .15s;
+  transition: background-color .15s, color .15s, transform .1s;
 }
 .btn:hover { background: var(--barra-escura); }
+.btn:active { transform: translateY(1px); }
 .btn-sec {
   background: transparent;
   color: var(--barra);
   box-shadow: inset 0 0 0 2px var(--barra);
 }
 .btn-sec:hover { background: var(--barra); color: var(--cal); }
-.tel { font-weight: 500; text-decoration: none; border-bottom: 1.5px solid var(--linha); padding-bottom: 2px; }
-.tel:hover { border-color: var(--tinta); }
+.btn-sec:active { background: var(--barra-escura); }
+.tel {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 500;
+  text-decoration-color: var(--linha-forte);
+}
+.tel:hover { text-decoration-color: currentColor; }
 
 .estado {
   display: inline-flex;
@@ -181,9 +211,7 @@ section { padding: clamp(4rem, 10vw, 7.5rem) 0; }
 }
 .tabela-grid .cabeca { position: sticky; top: 2rem; }
 .nota {
-  margin-top: 2rem;
-  padding-left: 1rem;
-  border-left: 3px solid var(--cortica);
+  margin-top: 1.25rem;
   font-size: .95rem;
   color: var(--tinta-suave);
   max-width: 40ch;
@@ -206,7 +234,7 @@ section { padding: clamp(4rem, 10vw, 7.5rem) 0; }
 .servico .pontos {
   flex: 1;
   min-width: 1.5rem;
-  border-bottom: 2px dotted #A9A79D;
+  border-bottom: 2px dotted var(--linha-forte);
   transform: translateY(-.3em);
 }
 .servico .preco {
@@ -301,7 +329,7 @@ section { padding: clamp(4rem, 10vw, 7.5rem) 0; }
 .citacoes footer { font-size: .9rem; color: var(--tinta-suave); }
 .citacoes footer b { color: var(--tinta); font-weight: 700; }
 .mais { margin-top: 2.5rem; }
-.mais a { font-weight: 500; }
+.mais a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 500; }
 
 /* ---------- Visitar ---------- */
 .visitar { border-top: 1.5px solid var(--linha); }
@@ -312,7 +340,12 @@ section { padding: clamp(4rem, 10vw, 7.5rem) 0; }
 }
 address { font-style: normal; font-size: 1.2rem; line-height: 1.5; margin: 1.25rem 0 1.5rem; }
 .links-visita { display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; align-items: center; }
-.links-visita a:not(.btn) { font-weight: 500; }
+.links-visita a:not(.btn) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 500;
+}
 .horario { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 .horario caption { text-align: left; font: 800 1.6rem/1 var(--sign); color: var(--barra); padding-bottom: .6rem; border-bottom: 1.5px solid var(--tinta); }
 .horario th, .horario td { padding: .7rem 0; border-bottom: 1px solid var(--linha); text-align: left; font-weight: 400; }
@@ -348,9 +381,7 @@ address { font-style: normal; font-size: 1.2rem; line-height: 1.5; margin: 1.25r
 /* ---------- Entrada: a barra é pintada ---------- */
 @media (prefers-reduced-motion: no-preference) {
   .fachada { animation: pintar .9s cubic-bezier(.6,0,.2,1) both; }
-  .letreiro h1 { animation: surgir .8s .35s cubic-bezier(.2,.7,.2,1) both; }
   @keyframes pintar { from { border-color: var(--cal); } to { border-color: var(--barra); } }
-  @keyframes surgir { from { opacity: 0; transform: translateY(.08em); } to { opacity: 1; transform: none; } }
 }
 
 /* ---------- Responsivo ---------- */
