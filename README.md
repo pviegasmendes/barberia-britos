@@ -22,6 +22,7 @@ public/               Lo que se publica en Netlify
   _headers            Cabeceras de Netlify: caché y seguridad
 netlify.toml          Configuración de Netlify: carpeta que se publica
 fotos-sin-usar/       Fotos de Fresha que no se usan (no se publican)
+seo/                  Notas privadas de SEO: revisión de datos estructurados (no se publican)
 .claude/              Configuración del servidor de vista previa local
 ```
 
@@ -53,9 +54,11 @@ La primera vez pide iniciar sesión y crear o enlazar el sitio.
 
 **Configuración:**
 
-- `netlify.toml` publica solo `public/`. README, `fotos-sin-usar/` y `.claude/` no llegan al servidor.
+- `netlify.toml` publica solo `public/`. README, `fotos-sin-usar/`, `seo/` y `.claude/` no llegan al servidor.
 - `public/_headers` añade cabeceras de seguridad en todas las páginas.
-- Fotos, CSS e icono en caché durante 7 días. Si reemplazas una foto con el mismo nombre, puede tardar hasta una semana en verse en navegadores que ya la tenían; para un cambio inmediato, usa un nombre de archivo nuevo.
+- HTML, `estilo.css` y `barra-fixa.js` se revalidan en cada visita: tras publicar, nadie ve la página nueva con estilos viejos.
+- Fotos e icono en caché 7 días: si reemplazas una foto con el mismo nombre, puede tardar hasta una semana en verse en navegadores que ya la tenían; para un cambio inmediato, usa un nombre de archivo nuevo.
+- Tipografías en caché un año: no cambian.
 
 Netlify sirve `404.html` automáticamente cuando una dirección no existe.
 
@@ -64,6 +67,7 @@ Netlify sirve `404.html` automáticamente cuando una dirección no existe.
 Con el dominio definitivo conectado en Netlify (*Domain management*), conviene añadir en las dos páginas:
 
 - `<link rel="canonical">` con la URL completa de cada versión.
+- `url` e `image` en el bloque de datos estructurados (ver `seo/schema-review.md`).
 - `og:url` y `og:image` con URL completa (por ejemplo `https://dominio.pt/img/foto-1.jpg`), para que WhatsApp y las redes muestren la foto al compartir el enlace.
 - Las URL completas en los `<link rel="alternate" hreflang>`.
 - Un `sitemap.xml` y su línea `Sitemap:` en `robots.txt`.
@@ -73,12 +77,13 @@ Con el dominio definitivo conectado en Netlify (*Domain management*), conviene a
 - **Concepto:** una fachada encalada del Algarve. El borde verde que enmarca la portada es la *barra* pintada alrededor de puertas y ventanas. El pie de página es el *rodapé*, la franja pintada de la base de la casa.
 - **Colores** (variables en `public/estilo.css`, dentro de `:root`):
 
-  | Variable | Color | Uso |
-  |---|---|---|
-  | `--cal` | `#FBFBF8` | Fondo, el blanco de la cal |
-  | `--barra` | `#134A3B` | Verde de marca (la pared del local) |
-  | `--tinta` | `#16140F` | Texto |
-  | `--cortica` | `#9A6B45` | Acento: duraciones y foco del teclado |
+  | Variable | Claro | Oscuro | Uso |
+  |---|---|---|---|
+  | `--fundo` | `#FBFBF8` | `#0E1613` | Fondo, el blanco de la cal |
+  | `--texto` | `#16140F` | `#ECEEE9` | Texto |
+  | `--marca` | `#134A3B` | `#1F6B54` | Verde de marca: marco, botones, pie |
+  | `--marca-texto` | `#134A3B` | `#86C9AE` | Verde de marca cuando es texto |
+  | `--cortica` | `#8A5D3A` | `#D6A57E` | Acento: duraciones y foco del teclado |
 
 - **Tipografía:** *Big Shoulders Display* para rótulos y precios, *Albert Sans* para el texto.
 - **Modo oscuro:** automático según el sistema del visitante. Los colores de los dos modos están en las variables de `:root` de `estilo.css`; el logo cambia a la versión blanca.
@@ -92,7 +97,8 @@ Cualquier cambio de contenido hay que hacerlo en **las dos versiones** (`public/
 - **Horario:** hay que cambiarlo en dos sitios de cada página:
   1. la tabla `id="horario"`. Cada fila lleva en `data-dias` los días que cubre (0 = domingo, 1 = lunes … 6 = sábado), para marcar "(hoje)";
   2. el objeto `horario` / `hours` del `<script>` al final, que calcula el aviso "Aberto agora" / "Open now" (siempre en hora de Lisboa).
-- **Fotos:** cada foto existe en dos versiones en `public/img/`: `.webp` (la que cargan los navegadores actuales, un 34 % más ligera) y `.jpg` (respaldo). Si cambias una foto, sustituye las dos con el mismo nombre.
+- **Fotos:** cada foto existe en `.webp` (la que cargan los navegadores actuales) y `.jpg` (respaldo). Las fotos 2, 7, 8 y 9 tienen además versiones de 480 y 800 px (`foto-N-480.webp`, `foto-N-800.webp`) para móviles. Si cambias una foto, sustituye todas sus versiones con el mismo nombre; las de 480/800 se generan con la skill `image-converter` (`--widths 480 800`).
+- **Datos estructurados (Google):** cada página lleva en el `<head>` un bloque `application/ld+json` con nombre, dirección, teléfono, horario y rango de precios. **Si cambia alguno de esos datos, hay que cambiarlo también ahí**, en las dos versiones. Detalle en `seo/schema-review.md`.
 - **Enlace de reservas:** apunta a la página de la barbería en Fresha. Si cambia, busca `fresha.com` en ambos archivos.
 
 ## Fuentes de los datos

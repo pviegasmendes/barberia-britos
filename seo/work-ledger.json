@@ -1,0 +1,24 @@
+{
+  "ledger_version": "1.0.0",
+  "title": "Datos estructurados de Brito's Barbearia",
+  "steps": [
+    {
+      "id": "schema-review",
+      "path": "schema-review.md",
+      "title": "Revisión de datos estructurados",
+      "status": "completed",
+      "owner": "Digital Montra",
+      "outcome": "JSON-LD HairSalon en las dos páginas; sintaxis, elegibilidad y paridad verificadas por separado",
+      "sha256": "22536f9c4077039f9d94e19b5eb1cfdc304f4120351750a00a6e86dab90f11c1"
+    },
+    {
+      "id": "entity-parity",
+      "path": "entity-parity.md",
+      "title": "Paridad entre marcado y contenido visible",
+      "status": "completed",
+      "owner": "Digital Montra",
+      "outcome": "14/14 valores visibles en las dos versiones; geo de la ficha de Google Maps",
+      "sha256": "801933638614e86727f76825ac73a8161d15fcb5adb110a9c42786219af7e58d"
+    }
+  ]
+}
