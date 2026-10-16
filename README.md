@@ -1,118 +1,120 @@
-# Brito's Barbearia — sitio web
+# Brito's Barbearia — website
 
-Web de una página para **Brito's Barbearia** (Barbearia by Diogo Brito), en São Brás de Alportel, Algarve.
-Hecha por [Digital Montra](https://digitalmontra.pt/).
+One-page website for **Brito's Barbearia** (Barbearia by Diogo Brito), in São Brás de Alportel, Algarve, Portugal.
+Built by [Digital Montra](https://digitalmontra.pt/).
 
-Es HTML y CSS estático, sin build ni dependencias. Las fuentes están alojadas en la propia web (`public/fontes/`), sin peticiones a Google.
+Plain static HTML and CSS: no build step, no dependencies. Fonts are self-hosted (`public/fontes/`), so there are no requests to Google.
 
-## Estructura
+## Structure
 
 ```
-public/               Lo que se publica en Netlify
-  index.html          Versión en portugués (principal)
-  en/index.html       Versión en inglés
-  estilo.css          Estilos compartidos por las dos versiones (modo claro y oscuro)
-  barra-fixa.js       Barra de "Marcar online" que aparece al bajar por la página
-  fontes/             Tipografías alojadas en la propia web (licencia OFL)
-  img/                Fotos usadas en la web (galería de Fresha) y el logo en SVG
-                      (logo-verde.svg para fondo claro, logo-branco.svg para fondo verde)
-  404.html            Página de error, bilingüe
-  favicon.svg         Icono de la pestaña
-  robots.txt          Permite indexar todo el sitio
-  _headers            Cabeceras de Netlify: caché y seguridad
-netlify.toml          Configuración de Netlify: carpeta que se publica
-fotos-sin-usar/       Fotos de Fresha que no se usan (no se publican)
-seo/                  Notas privadas de SEO: revisión de datos estructurados (no se publican)
-.claude/              Configuración del servidor de vista previa local
+public/               What gets published on Netlify
+  index.html          Portuguese version (main)
+  en/index.html       English version
+  estilo.css          Styles shared by both versions (light and dark mode)
+  barra-fixa.js       Sticky "Marcar online" (book online) bar shown while scrolling
+  fontes/             Self-hosted fonts (OFL licence)
+  img/                Photos used on the site (from the Fresha gallery) and the SVG logo
+                      (logo-verde.svg for light backgrounds, logo-branco.svg for green/dark)
+  404.html            Error page, bilingual
+  favicon.svg         Browser tab icon
+  robots.txt          Allows indexing of the whole site
+  _headers            Netlify headers: caching and security
+netlify.toml          Netlify config: which folder gets published
+PRODUCT.md            Product brief: audience, purpose, positioning, tone
+fotos-sin-usar/       Unused Fresha photos (not published)
+seo/                  Private SEO work notes (not published), indexed in seo/index.md:
+                      structured-data review, markup/visible-content parity, work log
+.claude/              Local preview server config
 ```
 
-## Ver la web en local
+## Run locally
 
-Con Python instalado, desde esta carpeta:
+With Python installed, from this folder:
 
 ```bash
 python -m http.server 5173 -d public
 ```
 
-Luego abre <http://localhost:5173> (portugués) o <http://localhost:5173/en/> (inglés).
+Then open <http://localhost:5173> (Portuguese) or <http://localhost:5173/en/> (English).
 
-## Publicar en Netlify
+## Deploy to Netlify
 
-No hay build: Netlify publica la carpeta `public/` tal cual, según `netlify.toml`.
+There is no build: Netlify publishes the `public/` folder as is, as set in `netlify.toml`.
 
-**Opción A: desde Git (recomendada).** Sube este proyecto a un repositorio de GitHub, GitLab o Bitbucket. En Netlify: *Add new site → Import an existing project* y elige el repositorio. Netlify lee `netlify.toml` solo, así que no hay que rellenar *Build command* ni *Publish directory*. Cada push vuelve a publicar.
+**Option A: from Git (recommended).** Push this project to a GitHub, GitLab or Bitbucket repository. In Netlify: *Add new site → Import an existing project* and pick the repository. Netlify reads `netlify.toml` on its own, so *Build command* and *Publish directory* can stay empty. Every push redeploys.
 
-**Opción B: arrastrar y soltar.** En Netlify: *Add new site → Deploy manually* y arrastra **la carpeta `public/`** (no la carpeta del proyecto). Las cabeceras se aplican igual, porque `_headers` va dentro de `public/`.
+**Option B: drag and drop.** In Netlify: *Add new site → Deploy manually* and drag **the `public/` folder** (not the project folder). Headers still apply, because `_headers` lives inside `public/`.
 
-**Opción C: Netlify CLI.**
+**Option C: Netlify CLI.**
 
 ```bash
 npx netlify-cli deploy --prod
 ```
 
-La primera vez pide iniciar sesión y crear o enlazar el sitio.
+The first time, it asks you to log in and create or link the site.
 
-**Configuración:**
+**Configuration:**
 
-- `netlify.toml` publica solo `public/`. README, `fotos-sin-usar/`, `seo/` y `.claude/` no llegan al servidor.
-- `public/_headers` añade cabeceras de seguridad en todas las páginas.
-- HTML, `estilo.css` y `barra-fixa.js` se revalidan en cada visita: tras publicar, nadie ve la página nueva con estilos viejos.
-- Fotos e icono en caché 7 días: si reemplazas una foto con el mismo nombre, puede tardar hasta una semana en verse en navegadores que ya la tenían; para un cambio inmediato, usa un nombre de archivo nuevo.
-- Tipografías en caché un año: no cambian.
+- `netlify.toml` publishes only `public/`. The README, `PRODUCT.md`, `fotos-sin-usar/`, `seo/` and `.claude/` never reach the server.
+- `public/_headers` adds security headers to every page.
+- HTML, `estilo.css` and `barra-fixa.js` are revalidated on every visit: after a deploy, nobody sees the new page with old styles.
+- Photos and icon are cached for 7 days: if you replace a photo under the same filename, it can take up to a week to show in browsers that already had it. For an immediate change, use a new filename.
+- Fonts are cached for a year: they never change.
 
-Netlify sirve `404.html` automáticamente cuando una dirección no existe.
+Netlify serves `404.html` automatically when a URL does not exist.
 
-### Cuando haya dominio
+### Once there is a domain
 
-Con el dominio definitivo conectado en Netlify (*Domain management*), conviene añadir en las dos páginas:
+With the final domain connected in Netlify (*Domain management*), add to both pages:
 
-- `<link rel="canonical">` con la URL completa de cada versión.
-- `url` e `image` en el bloque de datos estructurados (ver `seo/schema-review.md`).
-- `og:url` y `og:image` con URL completa (por ejemplo `https://dominio.pt/img/foto-1.jpg`), para que WhatsApp y las redes muestren la foto al compartir el enlace.
-- Las URL completas en los `<link rel="alternate" hreflang>`.
-- Un `sitemap.xml` y su línea `Sitemap:` en `robots.txt`.
+- `<link rel="canonical">` with the full URL of each version.
+- `url` and `image` in the structured-data block (see `seo/schema-review.md`).
+- `og:url` and `og:image` with a full URL (e.g. `https://domain.pt/img/foto-1.jpg`), so WhatsApp and social networks show the photo when the link is shared.
+- Full URLs in the `<link rel="alternate" hreflang>` tags (they are relative for now).
+- A `sitemap.xml` and its `Sitemap:` line in `robots.txt`.
 
-## Diseño
+## Design
 
-- **Concepto:** una fachada encalada del Algarve. El borde verde que enmarca la portada es la *barra* pintada alrededor de puertas y ventanas. El pie de página es el *rodapé*, la franja pintada de la base de la casa.
-- **Colores** (variables en `public/estilo.css`, dentro de `:root`):
+- **Concept:** a whitewashed Algarve façade. The green border framing the hero is the *barra*, the band painted around doors and windows. The footer is the *rodapé*, the painted strip at the base of the house.
+- **Colours** (variables in `public/estilo.css`, under `:root`):
 
-  | Variable | Claro | Oscuro | Uso |
+  | Variable | Light | Dark | Use |
   |---|---|---|---|
-  | `--fundo` | `#FBFBF8` | `#0E1613` | Fondo, el blanco de la cal |
-  | `--texto` | `#16140F` | `#ECEEE9` | Texto |
-  | `--marca` | `#134A3B` | `#1F6B54` | Verde de marca: marco, botones, pie |
-  | `--marca-texto` | `#134A3B` | `#86C9AE` | Verde de marca cuando es texto |
-  | `--cortica` | `#8A5D3A` | `#D6A57E` | Acento: duraciones y foco del teclado |
+  | `--fundo` | `#FBFBF8` | `#0E1613` | Background, the white of the lime wash |
+  | `--texto` | `#16140F` | `#ECEEE9` | Text |
+  | `--marca` | `#134A3B` | `#1F6B54` | Brand green: frame, buttons, footer |
+  | `--marca-texto` | `#134A3B` | `#86C9AE` | Brand green when used as text |
+  | `--cortica` | `#8A5D3A` | `#D6A57E` | Accent: durations and keyboard focus |
 
-- **Tipografía:** *Big Shoulders Display* para rótulos y precios, *Albert Sans* para el texto.
-- **Modo oscuro:** automático según el sistema del visitante. Los colores de los dos modos están en las variables de `:root` de `estilo.css`; el logo cambia a la versión blanca.
+- **Typography:** *Big Shoulders Display* for headings and prices, *Albert Sans* for body text.
+- **Dark mode:** automatic, following the visitor's system setting. Colours for both modes are in the `:root` variables of `estilo.css`; the logo switches to the white version.
 
-## Editar contenido
+## Editing content
 
-Cualquier cambio de contenido hay que hacerlo en **las dos versiones** (`public/index.html` y `public/en/index.html`).
+Every content change must be made in **both versions** (`public/index.html` and `public/en/index.html`).
 
-- **Precios y servicios:** sección `id="precos"`. Cada servicio es un bloque `.servico` con nombre, precio y duración.
-- **Equipo:** sección `id="equipa"`, lista `.barbeiros`. El primer elemento (`.fundador`) se muestra más grande.
-- **Horario:** hay que cambiarlo en dos sitios de cada página:
-  1. la tabla `id="horario"`. Cada fila lleva en `data-dias` los días que cubre (0 = domingo, 1 = lunes … 6 = sábado), para marcar "(hoje)";
-  2. el objeto `horario` / `hours` del `<script>` al final, que calcula el aviso "Aberto agora" / "Open now" (siempre en hora de Lisboa).
-- **Fotos:** cada foto existe en `.webp` (la que cargan los navegadores actuales) y `.jpg` (respaldo). Las fotos 2, 7, 8 y 9 tienen además versiones de 480 y 800 px (`foto-N-480.webp`, `foto-N-800.webp`) para móviles. Si cambias una foto, sustituye todas sus versiones con el mismo nombre; las de 480/800 se generan con la skill `image-converter` (`--widths 480 800`).
-- **Datos estructurados (Google):** cada página lleva en el `<head>` un bloque `application/ld+json` con nombre, dirección, teléfono, horario y rango de precios. **Si cambia alguno de esos datos, hay que cambiarlo también ahí**, en las dos versiones. Detalle en `seo/schema-review.md`.
-- **Enlace de reservas:** apunta a la página de la barbería en Fresha. Si cambia, busca `fresha.com` en ambos archivos.
+- **Prices and services:** section `id="precos"`. Each service is a `.servico` block with name, price and duration.
+- **Team:** section `id="equipa"`, list `.barbeiros`. The first item (`.fundador`) is shown larger.
+- **Opening hours:** must be changed in two places on each page:
+  1. the `id="horario"` table. Each row's `data-dias` lists the days it covers (0 = Sunday, 1 = Monday … 6 = Saturday), used to mark "(hoje)" / "(today)";
+  2. the `horario` / `hours` object in the `<script>` at the end, which drives the "Aberto agora" / "Open now" notice (always in Lisbon time).
+- **Photos:** each photo exists as `.webp` (loaded by modern browsers) and `.jpg` (fallback). Photos 2, 7, 8 and 9 also have 480 px and 800 px versions (`foto-N-480.webp`, `foto-N-800.webp`) for phones, served via `srcset`. If you change a photo, replace all its versions under the same name; the 480/800 versions are generated with the `image-converter` skill (`--widths 480 800`).
+- **Structured data (Google):** each page has an `application/ld+json` block in the `<head>` with name, address, phone, opening hours and price range. **If any of those change, update them there too**, in both versions. Details in `seo/schema-review.md` and `seo/entity-parity.md`.
+- **Booking link:** points to the shop's Fresha page. If it changes, search for `fresha.com` in both files (it appears several times per page, including the structured data).
+- **Review count:** hard-coded as text ("419") in both versions; update it from time to time.
 
-## Fuentes de los datos
+## Data sources
 
-Datos recogidos en octubre de 2026 de:
+Data collected in October 2026 from:
 
-- **Google Maps:** dirección, teléfono y horario.
-- **Fresha:** servicios, precios, equipo, valoración (5,0 con 419 reseñas), reseñas citadas y fotos.
+- **Google Maps:** address, phone, opening hours and map coordinates.
+- **Fresha:** services, prices, team, rating (5.0 from 419 reviews), quoted reviews and photos.
 
-## Pendiente de confirmar con el cliente
+## To confirm with the client
 
-- [ ] Permiso para usar las fotos de la galería de Fresha en la web.
-- [ ] Qué fotos corresponden a Inês (`public/img/foto-7.jpg`) y a Diogo, el segundo barbero (`public/img/foto-8.jpg`). Diogo Brito (`public/img/foto-6.jpg`) ya está confirmado.
-- [ ] Dominio definitivo (ver «Cuando haya dominio»).
-- [ ] Archivo original del logo. El de la web está redibujado a partir del bordado, con las fuentes Lobster y Oswald (licencia OFL): se parece mucho, pero no es idéntico.
-- [ ] Servicio número 12 de Fresha, que no aparece en la web (probablemente "Corte Degradê + Sobrancelhas").
-- [ ] Actualizar el número de reseñas de vez en cuando: está escrito a mano en las dos versiones.
+- [ ] Permission to use the Fresha gallery photos on the website.
+- [ ] Which photos show Inês (`public/img/foto-7.jpg`) and Diogo, the second barber (`public/img/foto-8.jpg`). Diogo Brito (`public/img/foto-6.jpg`) is already confirmed.
+- [ ] Final domain (see "Once there is a domain").
+- [ ] Original logo file. The one on the site was redrawn from the embroidered version using the Lobster and Oswald fonts (OFL licence): very close, but not identical.
+- [ ] Service no. 12 on Fresha, which is not on the website (probably "Corte Degradê + Sobrancelhas").
